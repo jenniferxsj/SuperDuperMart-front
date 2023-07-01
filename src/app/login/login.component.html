@@ -1,0 +1,31 @@
+<style>
+  a:hover{
+    background-color: #F2F2ED;
+    color: #151512 !important;
+    font-style: italic;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: 0.2s;
+  }
+</style>
+
+<div class="p-5 p-md-8 text-center">
+  <h2>Log In</h2>
+  <form #loginForm="ngForm" (ngSubmit) = "login(loginForm)" style="text-align:center; padding-top: 40px">
+    <div>
+      <label for="username" class="form-label">Username</label>
+<!--      id and name here should be the same as the model we define when login the user   -->
+      <input type="text" ngModel name="username" class="form-control" id="username" aria-describedby="usernameHelp">
+      <div id="usernameHelp" class="form-text">We'll never share your info with anyone else.</div>
+    </div>
+    <div style="padding-top: 20px; padding-bottom: 20px">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" ngModel name="password" class="form-control" id="password">
+    </div>
+    <button type="submit" class="btn btn-dark" value="Login">Submit</button>
+    <div>
+      <a style="color: #151512" href="#">Not register yet? Click here</a>
+    </div>
+  </form>
+
+</div>
