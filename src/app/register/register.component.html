@@ -1,0 +1,32 @@
+<style>
+  a:hover{
+    background-color: #F2F2ED;
+    color: #151512 !important;
+    font-style: italic;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: 0.2s;
+  }
+</style>
+
+<div>
+  <div class="p-5 p-md-8 text-center">
+    <h2>Register</h2>
+    <form #signupForm="ngForm" (ngSubmit)="registerUser(signupForm)" style="text-align:center; padding-top: 40px">
+      <div>
+        <label class="form-label">Email address</label>
+        <input type="email" ngModel name="email" class="form-control" aria-describedby="emailHelp">
+      </div>
+      <div style="padding-top: 20px; padding-bottom: 20px">
+        <label class="form-label">username</label>
+        <input type="text" ngModel name="username" class="form-control" >
+      </div>
+      <div style="padding-top: 20px; padding-bottom: 20px">
+        <label class="form-label">Password</label>
+        <input type="password" ngModel name="password" class="form-control" >
+      </div>
+      <button type="submit" class="btn btn-dark" value="SignUp">Submit</button>
+    </form>
+    <a style="color: #151512" routerLink="/login">Have an Account? Click Here</a>
+  </div>
+</div>

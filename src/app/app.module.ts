@@ -13,6 +13,7 @@ import {InterceptorService} from "./auth/interceptor.service";
 import {UserService} from "./services/user.service";
 import { ProductComponent } from './product/product.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
     LoginComponent,
     HomeComponent,
     ProductComponent,
-    ForbiddenComponent
+    ForbiddenComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

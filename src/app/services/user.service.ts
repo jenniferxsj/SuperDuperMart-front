@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {LoginData} from "../model/loginData.model";
 import {tap} from "rxjs";
+import {RegisterData} from "../model/registerData.model";
 
 @Injectable({providedIn: "root"})
 export class UserService {
@@ -19,7 +20,11 @@ export class UserService {
     localStorage.removeItem('auth_token');
   }
 
-  public get loggedIn(): boolean {
+  public loggedIn(): boolean {
     return localStorage.getItem('auth_token') !== null;
+  }
+
+  public register(registerData: RegisterData) {
+    return this.http.post("http://localhost:8080/signup", registerData);
   }
 }
