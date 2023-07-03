@@ -15,17 +15,27 @@
     <form #signupForm="ngForm" (ngSubmit)="registerUser(signupForm)" style="text-align:center; padding-top: 40px">
       <div>
         <label class="form-label">Email address</label>
-        <input type="email" ngModel name="email" class="form-control" aria-describedby="emailHelp">
+        <input type="email" ngModel name="email" class="form-control" aria-describedby="emailHelp"
+               required email #emailField="ngModel">
+        <div *ngIf="emailField.invalid && (emailField.dirty || emailField.touched)">
+          <div *ngIf="emailField.errors?.['required']" style="color: darkred">
+            Email is required.
+          </div>
+          <div *ngIf="emailField.errors?.['email']" style="color: darkred">
+            Invalid email.
+          </div>
+        </div>
       </div>
       <div style="padding-top: 20px; padding-bottom: 20px">
         <label class="form-label">username</label>
-        <input type="text" ngModel name="username" class="form-control" >
+        <input type="text" ngModel name="username" class="form-control" required>
       </div>
       <div style="padding-top: 20px; padding-bottom: 20px">
         <label class="form-label">Password</label>
-        <input type="password" ngModel name="password" class="form-control" >
+        <input type="password" ngModel name="password" class="form-control" required>
       </div>
-      <button type="submit" class="btn btn-dark" value="SignUp">Submit</button>
+      <button type="submit" class="btn btn-dark" value="SignUp"
+              [disabled]="!signupForm.form.valid">Submit</button>
     </form>
     <a style="color: #151512" routerLink="/login">Have an Account? Click Here</a>
   </div>

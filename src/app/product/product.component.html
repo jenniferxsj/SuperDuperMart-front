@@ -1,1 +1,50 @@
-<p>product works!</p>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Product</th>
+      <th scope="col">Description</th>
+      <th scope="col">Price</th>
+      <th scope="col">Amount</th>
+    </tr>
+    </thead>
+    <tbody *ngIf="!is_admin">
+      <tr *ngFor="let product of dataInfo">
+        <td>{{product.name}}</td>
+        <td>{{product.description}}</td>
+        <td>{{product.retail_price}}</td>
+        <td>
+          <input type="number" min="1" [(ngModel)]="product.quantity" class="form-control" style="width:70px;">
+        </td>
+        <td>
+          <button (click)="addToCart(product)" class="btn btn-light" value="addCart">Add to Cart</button>
+          <button (click)="getDetail(product)" class="btn btn-light" value="detail">Detail</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button type="submit" (click)="placeOrder()" value="submitOrder" class="btn btn-dark">Submit Order</button>
+
+
+
+
+<!--    <div *ngIg="is_admin">-->
+<!--      <tr>-->
+<!--        <th scope="row">${entry.key.id}</th>-->
+<!--        <td>${entry.key.name}</td>-->
+<!--        <td>${entry.value[0]}</td>-->
+<!--        <td>${entry.key.time_start}</td>-->
+<!--        <td>${entry.key.time_end}</td>-->
+<!--        <td>-->
+<!--          <c:if test="${entry.key.time_end != null}">-->
+<!--            <form action="/quiz-result/${entry.key.id}" method="get">-->
+<!--              <button class="btn btn-light" type="submit">-->
+<!--                ${entry.value[1]}-->
+<!--              </button>-->
+
+<!--            </form>-->
+<!--          </c:if>-->
+<!--        </td>-->
+<!--      </tr>-->
+<!--    </div>-->
+<!--    </tbody>-->

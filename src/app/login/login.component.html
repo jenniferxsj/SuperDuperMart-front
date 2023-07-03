@@ -15,14 +15,14 @@
     <div>
       <label for="username" class="form-label">Username</label>
 <!--      id and name here should be the same as the model we define when login the user   -->
-      <input type="text" ngModel name="username" class="form-control" id="username" aria-describedby="usernameHelp">
+      <input type="text" required ngModel name="username" class="form-control" id="username" aria-describedby="usernameHelp">
       <div id="usernameHelp" class="form-text">We'll never share your info with anyone else.</div>
     </div>
     <div style="padding-top: 20px; padding-bottom: 20px">
       <label for="password" class="form-label">Password</label>
-      <input type="password" ngModel name="password" class="form-control" id="password">
+      <input type="password" required ngModel name="password" class="form-control" id="password">
     </div>
-    <button type="submit" class="btn btn-dark" value="Login">Submit</button>
+    <button type="submit" class="btn btn-dark" value="Login" [disabled]="!loginForm.form.valid">Submit</button>
     <div>
       <a style="color: #151512" routerLink="/signup">Not register yet? Click here</a>
     </div>

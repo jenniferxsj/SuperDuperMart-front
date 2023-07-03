@@ -41,4 +41,8 @@ export class UserAuthService{
   public isLogin() {
     return this.getPermissions() && this.getToken();
   }
+
+  public isAdmin(): boolean {
+    return this.getPermissions() !== null && this.getPermissions() === 'Admin';
+  }
 }
