@@ -1,0 +1,29 @@
+<table class="table" *ngIf="productsSize === cart.length && cart.length > 0">
+  <thead>
+  <tr>
+    <th scope="col">Product Name</th>
+    <th scope="col">Price</th>
+    <th scope="col">Quantity</th>
+    <th scope="col">Total Price</th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of cart; let i = index ">
+    <td>{{products[item.productId].name}}</td>
+    <td>{{products[item.productId].retail_price}}</td>
+    <td>{{item.quantity}}</td>
+    <td>{{item.quantity * products[item.productId].retail_price}}</td>
+    <td>
+      <button class="btn btn-danger" type="submit" (click)="removeFromCart(i)">Remove from Cart</button>
+    </td>
+  </tr>
+  </tbody>
+  <button class="btn btn-danger" type="submit" (click)="placeOrder()">Place Order</button>
+</table>
+
+<div *ngIf="cart.length === 0" class="text-center">
+  <h3>Your Cart is Empty</h3>
+  <a routerLink="/products"><strong>Explore all Our Products Here</strong></a>
+</div>
+

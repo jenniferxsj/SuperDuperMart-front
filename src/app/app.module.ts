@@ -15,6 +15,7 @@ import { ProductComponent } from './product/product.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { RegisterComponent } from './register/register.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { ShoppingCartComponent } from './shoppingcart/shoppingCart.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
     ProductComponent,
     ForbiddenComponent,
     RegisterComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,

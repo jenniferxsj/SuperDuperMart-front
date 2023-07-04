@@ -7,6 +7,7 @@ import {ProductData} from "../model/productData.model";
 import {UserProduct} from "../model/userProduct.model";
 import {OrderItemToAdd} from "../model/orderItemToAdd.model";
 import {Location} from "@angular/common";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-product',
@@ -16,7 +17,7 @@ import {Location} from "@angular/common";
 export class ProductComponent implements OnInit {
   is_admin: boolean = false;
   dataInfo: any[] = [];
-  quantity: number = 0;
+  watchlist: number[] = [];
   cart: OrderItemToAdd[] = [];
   constructor(private productService: ProductService, private userAuthService: UserAuthService,
               private changeDetector: ChangeDetectorRef) {
@@ -24,7 +25,8 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     this.getAllProducts();
-    this.cart = [];
+    this.getAllWatchlist();
+    this.cart = this.userAuthService.getCart();
   }
 
   public getAllProducts() {
@@ -39,7 +41,7 @@ export class ProductComponent implements OnInit {
     );
   }
 
-  addToCart(product: UserProduct) {
+  public addToCart(product: UserProduct) {
     if(product.quantity < 1) {
       alert("Quantity should be at least 1");
       return;
@@ -50,14 +52,16 @@ export class ProductComponent implements OnInit {
     } else {
       this.cart.push({productId: product.id, quantity: product.quantity});
     }
-    console.log(this.cart);
+    alert("Product added to cart");
+    this.userAuthService.setCart(this.cart);
   }
 
-  placeOrder() {
+  public placeOrder() {
     this.productService.placeOrder(this.cart).subscribe(
-      response => {
-        alert("Order successfully placed");
+      (response: any) => {
+        alert(response.message);
         this.cart = [];
+        this.userAuthService.setCart(this.cart);
         for(let product of this.dataInfo) {
           product.quantity = 0;
         }
@@ -70,4 +74,41 @@ export class ProductComponent implements OnInit {
     this.changeDetector.detectChanges();
   }
 
+  public addToWatchlist(product: UserProduct) {
+    this.productService.addToWatchlist(product.id).subscribe(
+      (response:any) => {
+        this.watchlist = [];
+        this.getAllWatchlist();
+        alert(response.message);
+      },
+      error => {
+        console.error(error);
+        alert("Something's wrong, try again");
+      }
+    );
+  }
+  public getAllWatchlist() {
+    this.productService.getAllWatchlist().subscribe(
+      (response:any) => {
+        response.data.forEach((item:any) => this.watchlist.push(item.product.id));
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  public removeFromWatchlist(product: UserProduct) {
+    this.productService.removeFromWatchlist(product.id).subscribe(
+      (response:any) => {
+        this.watchlist = [];
+        this.getAllWatchlist();
+        alert(response.message);
+      },
+      error => {
+        console.error(error);
+        alert("Something's wrong, try again");
+      }
+    )
+  }
 }

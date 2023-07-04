@@ -17,7 +17,7 @@
         </li>
 
       </ul>
-      <a style="color: azure; padding-right: 20px">Shopping Cart</a>
+      <a style="color: azure; padding-right: 20px" routerLink="/cart">Shopping Cart</a>
       <button *ngIf="!isLogIn()" class="btn btn-light" type="button" routerLink="/login">Login</button>
       <button *ngIf="isLogIn()" (click) = "logout()" class="btn btn-danger" type="button">Logout</button>
     </div>

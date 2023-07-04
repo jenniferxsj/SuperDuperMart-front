@@ -75,4 +75,29 @@ export class ProductService {
     return this.httpClient.post("http://localhost:8080/orders", orderRequest);
   }
 
+  public getProductById(id:number) {
+    return this.httpClient.get(`http://localhost:8080/products/${id}`).pipe(
+      map((response:any):UserProduct => {
+        return {
+          id: response.data.id,
+          name: response.data.name,
+          description: response.data.description,
+          retail_price: response.data.retail_price,
+          quantity: 0
+        }
+      })
+    );
+  }
+
+  public addToWatchlist(id:number) {
+    return this.httpClient.post(`http://localhost:8080/watchlist/product/${id}`, {});
+  }
+
+  public getAllWatchlist() {
+    return this.httpClient.get("http://localhost:8080/watchlist/products/all");
+  }
+
+  public removeFromWatchlist(id:number) {
+    return this.httpClient.delete(`http://localhost:8080/watchlist/product/${id}`);
+  }
 }

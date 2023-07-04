@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import jwt_decode from 'jwt-decode';
+import {OrderItemToAdd} from "../model/orderItemToAdd.model";
 
 @Injectable({
   providedIn: "root"
@@ -44,5 +45,14 @@ export class UserAuthService{
 
   public isAdmin(): boolean {
     return this.getPermissions() !== null && this.getPermissions() === 'Admin';
+  }
+
+  public setCart(cart:OrderItemToAdd[]) {
+    return localStorage.setItem("cart", JSON.stringify(cart));
+  }
+
+  public getCart():OrderItemToAdd[] {
+    const item: string | null = localStorage.getItem("cart");
+    return item ? JSON.parse(item) : null;
   }
 }

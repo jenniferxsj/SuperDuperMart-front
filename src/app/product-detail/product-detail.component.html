@@ -1,1 +1,8 @@
-<p>product-detail works!</p>
+<div class="text-center">
+  <h2>{{ product.name }}</h2>
+  <p><strong>Description: </strong>{{ product.description }}</p>
+  <p><strong>Price: </strong> {{ product.retail_price }}</p>
+  <button class="btn btn-dark" *ngIf="!watchlist.includes(product.id)" (click)="addToWatchlist()">Add To Watchlist</button>
+  <button class="btn btn-secondary" *ngIf="watchlist.includes(product.id)" (click)="removeFromWatchlist()">Remove from Watchlist</button>
+  <button class="btn btn-dark" routerLink="/products">Back to All Products</button>
+</div>

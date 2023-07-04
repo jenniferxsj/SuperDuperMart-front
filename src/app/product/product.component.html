@@ -1,11 +1,10 @@
-
   <table class="table">
     <thead>
     <tr>
       <th scope="col">Product</th>
       <th scope="col">Description</th>
       <th scope="col">Price</th>
-      <th scope="col">Amount</th>
+      <th scope="col">Quantity</th>
     </tr>
     </thead>
     <tbody *ngIf="!is_admin">
@@ -14,11 +13,13 @@
         <td>{{product.description}}</td>
         <td>{{product.retail_price}}</td>
         <td>
-          <input type="number" min="1" [(ngModel)]="product.quantity" class="form-control" style="width:70px;">
+          <input type="number" min="0" [(ngModel)]="product.quantity" class="form-control" style="width:70px;">
         </td>
         <td>
           <button (click)="addToCart(product)" class="btn btn-light" value="addCart">Add to Cart</button>
-          <button (click)="getDetail(product)" class="btn btn-light" value="detail">Detail</button>
+          <button [routerLink]="['/products', product.id]"  class="btn btn-light" value="detail">View Detail</button>
+          <button *ngIf="!watchlist.includes(product.id)" (click)="addToWatchlist(product)" class="btn btn-light" value="addWatchlist">Add to Watchlist</button>
+          <button *ngIf="watchlist.includes(product.id)" (click)="removeFromWatchlist(product)" class="btn btn-secondary" value="deleteWatchlist">Remove from Watchlist</button>
         </td>
       </tr>
     </tbody>
