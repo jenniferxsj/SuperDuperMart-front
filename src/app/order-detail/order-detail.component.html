@@ -1,0 +1,23 @@
+<div class="text-center">
+  <h2>Order Details</h2>
+  <p><strong>Status:</strong> {{order.order_status}}</p>
+  <p><strong>Date Placed:</strong> {{order.date_placed | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+  <button *ngIf="order.order_status  !== 'Canceled'" type="submit" (click)="cancelOrder(order.id)" class="btn btn-secondary">Cancel Order</button>
+  <h3>Order Items</h3>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Purchased Price</th>
+      <th scope="col">Quantity</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of order.orderItemDTOList">
+      <th scope="row">{{item.productDTO.name}}</th>
+      <td>{{item.purchased_price}}</td>
+      <td>{{item.quantity}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

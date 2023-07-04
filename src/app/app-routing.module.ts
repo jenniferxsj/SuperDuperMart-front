@@ -8,6 +8,7 @@ import {ForbiddenComponent} from "./forbidden/forbidden.component";
 import {RegisterComponent} from "./register/register.component";
 import {ProductDetailComponent} from "./product-detail/product-detail.component";
 import {ShoppingCartComponent} from "./shoppingcart/shoppingCart.component";
+import {OrderDetailComponent} from "./order-detail/order-detail.component";
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: "forbidden", component: ForbiddenComponent},
   {path: "products/:id", component: ProductDetailComponent, canActivate:[AuthGuardService]},
   {path: "cart", component: ShoppingCartComponent},
+  {path: "orders/:id", component: OrderDetailComponent}
 ];
 
 @NgModule({

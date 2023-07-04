@@ -16,6 +16,8 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { RegisterComponent } from './register/register.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ShoppingCartComponent } from './shoppingcart/shoppingCart.component';
+import {DatePipe} from "@angular/common";
+import { OrderDetailComponent } from './order-detail/order-detail.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { ShoppingCartComponent } from './shoppingcart/shoppingCart.component';
     ForbiddenComponent,
     RegisterComponent,
     ProductDetailComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    OrderDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,8 @@ import { ShoppingCartComponent } from './shoppingcart/shoppingCart.component';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
     AuthGuardService,
-    UserService
+    UserService,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })
