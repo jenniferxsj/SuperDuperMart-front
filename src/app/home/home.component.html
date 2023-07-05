@@ -25,3 +25,43 @@
   </tr>
   </tbody>
 </table>
+
+<h4 class="text-center">Frequently Buy Products</h4>
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Product Name</th>
+    <th scope="col">Product Description</th>
+    <th scope="col">Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let product of frequentProducts; let i = index">
+    <th scope="row">{{i + 1}}</th>
+    <th>{{product.name}}</th>
+    <th>{{product.description}}</th>
+    <th><button [routerLink]="['/products', product.id]" class="btn btn-light">Detail</button></th>
+  </tr>
+  </tbody>
+</table>
+
+<h4 class="text-center">Recently Buy Products</h4>
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Product Name</th>
+    <th scope="col">Product Description</th>
+    <th scope="col">Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let product of recentProducts; let i = index">
+    <th scope="row">{{i + 1}}</th>
+    <th>{{product.name}}</th>
+    <th>{{product.description}}</th>
+    <th><button [routerLink]="['/products', product.id]" class="btn btn-light">Detail</button></th>
+  </tr>
+  </tbody>
+</table>

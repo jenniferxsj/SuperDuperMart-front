@@ -18,4 +18,12 @@ export class OrderService {
   public cancelOrder(id: number) {
     return this.httpClient.patch(`http://localhost:8080/orders/${id}/cancel`, []);
   }
+
+  public frequentProducts(count: number) {
+    return this.httpClient.get(`http://localhost:8080/products/frequent/${count}`);
+  }
+
+  public recentProducts(count: number) {
+    return this.httpClient.get(`http://localhost:8080/products/recent/${count}`);
+  }
 }

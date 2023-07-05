@@ -8,4 +8,5 @@ export interface OrderItem {
 export interface ProductOrderItem {
   id: number;
   name: string;
+  description: string;
 }
