@@ -47,26 +47,26 @@
           <form #createProductForm="ngForm" (ngSubmit)="createProduct(createProductForm)">
             <div class="mb-3">
               <label for="name" class="form-label">Product Name</label>
-              <input type="text" class="form-control" id="name" name="name" ngModel>
+              <input type="text" class="form-control" id="name" name="name" ngModel required>
             </div>
             <div class="mb-3">
               <label for="description" class="form-label">Description</label>
-              <input type="text" class="form-control" id="description" name="description" ngModel>
+              <input type="text" class="form-control" id="description" name="description" ngModel required>
             </div>
             <div class="mb-3">
               <label for="retail_price" class="form-label">Retail Price</label>
-              <input type="text" class="form-control" id="retail_price" name="retail_price" ngModel>
+              <input type="text" class="form-control" id="retail_price" name="retail_price" ngModel required>
             </div>
             <div class="mb-3">
               <label for="wholesale_price" class="form-label">Wholesale Price</label>
-              <input type="text" class="form-control" id="wholesale_price" name="wholesale_price" ngModel>
+              <input type="text" class="form-control" id="wholesale_price" name="wholesale_price" ngModel required>
             </div>
             <div class="mb-3">
               <label for="quantity" class="form-label">Quantity</label>
-              <input type="text" class="form-control" id="quantity" name="quantity" ngModel>
+              <input type="text" class="form-control" id="quantity" name="quantity" ngModel required>
             </div>
             <!-- Add more fields as required -->
-            <button type="submit" class="btn btn-dark" >Create</button>
+            <button type="submit" class="btn btn-dark" [disabled]="!createProductForm.form.valid">Create</button>
           </form>
         </div>
       </div>

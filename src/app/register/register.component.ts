@@ -17,8 +17,13 @@ export class RegisterComponent implements OnInit {
   registerUser(signupForm: NgForm) {
     console.log(signupForm.value);
     this.userService.register(signupForm.value).subscribe(
-      res => {
-        this.router.navigate(["/login"]);
+      (res:any) => {
+        if(res.hasOwnProperty("statusCode")) {
+          alert(res.message);
+        } else {
+          this.router.navigate(["/login"]);
+        }
+
       },
       error => {console.log(error);}
     );

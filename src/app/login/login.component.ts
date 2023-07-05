@@ -20,14 +20,19 @@ export class LoginComponent implements OnInit {
   login(loginForm: NgForm) {
     this.userService.login(loginForm.value)
       .subscribe(
-        response => {
-          this.authService.setToken(response.token);
-          let tokenInfo = jwt_decode<JwtPayload>(response.token); //token is your JWT token received from server.
-          this.authService.setPermissions((tokenInfo as any).permissions[0].authority);
-          this.authService.setUsername(tokenInfo.sub as string);
-          let cart:OrderItemToAdd[] = [];
-          this.authService.setCart(cart);
-          this.router.navigate(["/"]);
+        (response:any) => {
+          if(response.hasOwnProperty("statusCode")) {
+            alert(response.message);
+          } else {
+            this.authService.setToken(response.token);
+            let tokenInfo = jwt_decode<JwtPayload>(response.token); //token is your JWT token received from server.
+            this.authService.setPermissions((tokenInfo as any).permissions[0].authority);
+            this.authService.setUsername(tokenInfo.sub as string);
+            let cart:OrderItemToAdd[] = [];
+            this.authService.setCart(cart);
+            this.router.navigate(["/"]);
+          }
+
         },
         error => {
           console.log(error);

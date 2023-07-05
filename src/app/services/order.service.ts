@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {OrderData} from "../model/orderData.model";
+import {Order} from "../model/order.model";
 
 @Injectable({providedIn: "root"})
 export class OrderService {
@@ -29,5 +30,12 @@ export class OrderService {
 
   public completeOrder(id: number) {
     return this.httpClient.patch(`http://localhost:8080/orders/${id}/complete`,[]);
+  }
+
+  public getAllOrderPageable(pageNumber: number, pageSize: number) {
+    const params = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString());
+    return this.httpClient.get<Order[]>("http://localhost:8080/orders/all", {params});
   }
 }

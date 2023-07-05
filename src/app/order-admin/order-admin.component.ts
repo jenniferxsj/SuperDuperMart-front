@@ -14,23 +14,34 @@ import {UserAuthService} from "../services/auth.service";
 export class OrderAdminComponent implements OnInit {
   orders: Order[] = [];
   isAdmin: boolean = false;
+  totalPage: number = 0;
+  totalElements: number = 0;
+  currentPageSize: number = 0;
   constructor(private orderService: OrderService, private datePipe: DatePipe,
               private router: Router, private userAuthService: UserAuthService) {
   }
 
   ngOnInit() {
-    this.getOrders();
+    this.getOrders(1, 10);
     this.isAdmin = this.userAuthService.isAdmin();
   }
 
-  getOrders() {
+  getOrders(page: number, size:number) {
+    // this.orderService.getAllOrderPageable(page, size).subscribe(
+    //   (response: any) => {
+    //     this.orders = response.data;
+    //     this.totalPage = response.totalPages;
+    //     this.totalElements = response.totalElements;
+    //     this.currentPageSize = response.size;
+    //   },
+    //   error => console.log(error)
+    // );
     this.orderService.getUserOrders().subscribe(
       (response: any) => {
         this.orders = response.orders.map((order:OrderData) => ({
           ...order,
           date_placed: this.datePipe.transform(order.date_placed, 'yyyy-MM-dd HH:mm:ss')
         }));
-        console.log(response);
       },
       error => {
         console.log(error);

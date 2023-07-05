@@ -12,14 +12,14 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" routerLink="/products">Product</a>
         </li>
-        <li class="nav-item" *ngIf="isAdmin">
+        <li class="nav-item" *ngIf="isAdmin && isLogIn()">
           <a class="nav-link active" aria-current="page" routerLink="/orders/all">Order</a>
         </li>
-        <li class="nav-item" *ngIf="!isAdmin">
+        <li class="nav-item" *ngIf="!isAdmin && isLogIn()">
           <a class="nav-link active" aria-current="page" routerLink="/watchlist">Watchlist</a>
         </li>
       </ul>
-      <a *ngIf="!isAdmin" style="color: azure; padding-right: 20px" routerLink="/cart" >
+      <a *ngIf="!isAdmin && isLogIn()" style="color: azure; padding-right: 20px" routerLink="/cart" >
 <!--        <i class="bi bi-cart4"></i>-->Shopping Cart
       </a>
 <!--      <a style="color: azure; padding-right: 20px" routerLink="/cart" >-->
