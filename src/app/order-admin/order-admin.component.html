@@ -1,0 +1,33 @@
+<div *ngIf="isAdmin">
+<h3>All Orders</h3>
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Date Placed</th>
+    <th scope="col">Username</th>
+    <th scope="col">Order Status</th>
+    <th scope="col">Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let order of orders; let i = index">
+    <th scope="row">{{i + 1}}</th>
+    <td>{{order.date_placed}}</td>
+    <td>{{order.username}}</td>
+    <td>{{order.order_status}}</td>
+    <td>
+      <button [routerLink]="['/orders', order.id]" class="btn btn-light" value="getOrder">
+        Details
+      </button>
+      <button *ngIf="order.order_status === 'Processing'" (click)="completeOrder(order.id)" class="btn btn-secondary" value="getOrder">
+        Set Complete
+      </button>
+      <button *ngIf="order.order_status === 'Processing'" (click)="cancelOrder(order.id)" class="btn btn-danger" value="getOrder">
+        Cancel Order
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</div>

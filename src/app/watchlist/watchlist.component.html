@@ -1,0 +1,24 @@
+<div class="text-center">
+<h3>WatchList</h3>
+  <a routerLink="/products">Back To Product</a>
+<table class="table text-center" *ngIf="products.length">
+  <thead>
+  <tr>
+    <th scope="col">Product</th>
+    <th scope="col">Description</th>
+    <th scope="col"> Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let product of products">
+    <td>{{product.name}}</td>
+    <td>{{product.description}}</td>
+    <td>
+      <button [routerLink]="['/products', product.id]"  class="btn btn-light" value="detail">View Detail</button>
+      <button (click)="removeFromWatchlist(product.id)" class="btn btn-danger" value="detail">Remove</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+  <h4 *ngIf="products.length == 0">It's empty</h4>
+</div>

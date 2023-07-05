@@ -15,56 +15,8 @@ export class ProductService {
     return this.httpClient.post<UserProduct>("http://localhost:8080/products", product);
   }
 
-  public getData(isAdmin: boolean) {
-    function processAdminData(response: any) {
-      if(!response.success || !response.data) {
-        console.error(response.message || "Error while processing the data");
-      }
-      let products:ProductData[] = response.data[0].map(
-        (product: ProductData) => {
-          return {
-            id: product.id,
-            description: product.description,
-            name: product.name,
-            quantity: product.quantity,
-            retail_price: product.retail_price,
-            wholesale_price: product.wholesale_price
-          };
-        }
-      );
-
-      let orders: OrderDetails[] = response.data[1][0].map(
-        (orderDetail: any) => {
-          return {
-            order: {
-              id: orderDetail[0].id,
-              date_placed: orderDetail[0].date_placed,
-              order_status: orderDetail[0].order_status,
-            },
-            quantity: orderDetail[1]
-          };
-        }
-      );
-      return [products, orders];
-    }
-
-    function processUserData(response: any) {
-      if(!response.success || !response.data) {
-        console.error(response.message || "Error while processing the data");
-      }
-      const productList: UserProduct[] = response.data;
-      return productList;
-    }
-
-    return this.httpClient.get("http://localhost:8080/products/all").pipe(
-      map(response => {
-        if(isAdmin) {
-          return processAdminData(response);
-        } else {
-          return processUserData(response);
-        }
-      })
-    );
+  public getData() {
+    return this.httpClient.get("http://localhost:8080/products/all");
   }
 
   public placeOrder(cart:OrderItemToAdd[]) {
@@ -77,13 +29,14 @@ export class ProductService {
 
   public getProductById(id:number) {
     return this.httpClient.get(`http://localhost:8080/products/${id}`).pipe(
-      map((response:any):UserProduct => {
+      map((response:any):ProductData => {
         return {
           id: response.data.id,
           name: response.data.name,
           description: response.data.description,
           retail_price: response.data.retail_price,
-          quantity: 0
+          quantity: response.data.quantity,
+          wholesale_price: response.data.wholesale_price
         }
       })
     );
@@ -100,4 +53,25 @@ export class ProductService {
   public removeFromWatchlist(id:number) {
     return this.httpClient.delete(`http://localhost:8080/watchlist/product/${id}`);
   }
+
+  public createProduct(newProductData: ProductData) {
+    return this.httpClient.post("http://localhost:8080/products", newProductData);
+  }
+
+  public updateProduct(newProductData: ProductData, id: number) {
+    return this.httpClient.patch(`http://localhost:8080/products/${id}`, newProductData);
+  }
+
+  public getProfitProduct(count: number) {
+    return this.httpClient.get(`http://localhost:8080/products/profit/${count}`);
+  }
+
+  public getPopularProduct(count: number) {
+    return this.httpClient.get(`http://localhost:8080/products/popular/${count}`);
+  }
+
+  public getSoldCount(id: number) {
+    return this.httpClient.get(`http://localhost:8080/products/${id}/sold`);
+  }
+
 }

@@ -6,3 +6,8 @@ export interface ProductData {
   retail_price: number;
   wholesale_price: number
 }
+
+export interface ProductProfit {
+  product: ProductData;
+  profit: number;
+}

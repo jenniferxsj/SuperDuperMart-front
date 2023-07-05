@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
           this.authService.setUsername(tokenInfo.sub as string);
           let cart:OrderItemToAdd[] = [];
           this.authService.setCart(cart);
-          this.router.navigate(["/home"]);
+          this.router.navigate(["/"]);
         },
         error => {
           console.log(error);

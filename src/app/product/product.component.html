@@ -1,51 +1,75 @@
-  <table class="table">
+  <table class="table text-center" *ngIf="dataInfo.length">
     <thead>
     <tr>
       <th scope="col">Product</th>
       <th scope="col">Description</th>
       <th scope="col">Price</th>
+      <th scope="col" *ngIf="is_admin">Wholesale Price</th>
       <th scope="col">Quantity</th>
+      <th scope="col"> Action</th>
     </tr>
     </thead>
-    <tbody *ngIf="!is_admin">
+    <tbody>
       <tr *ngFor="let product of dataInfo">
         <td>{{product.name}}</td>
-        <td>{{product.description}}</td>
+        <td>{{product.description.length > 15 ? (product.description | slice:0: 15)+'...' : product.description}}</td>
         <td>{{product.retail_price}}</td>
+        <td *ngIf="is_admin">{{product.wholesale_price}}</td>
         <td>
-          <input type="number" min="0" [(ngModel)]="product.quantity" class="form-control" style="width:70px;">
+          <input *ngIf="!is_admin" type="number" min="0" [(ngModel)]="product.quantity" class="form-control" style="width:70px;">
+          <p *ngIf="is_admin">{{product.quantity}}</p>
         </td>
+
         <td>
-          <button (click)="addToCart(product)" class="btn btn-light" value="addCart">Add to Cart</button>
+          <button *ngIf="!is_admin" (click)="addToCart(product)" class="btn btn-light" value="addCart">Add to Cart</button>
           <button [routerLink]="['/products', product.id]"  class="btn btn-light" value="detail">View Detail</button>
-          <button *ngIf="!watchlist.includes(product.id)" (click)="addToWatchlist(product)" class="btn btn-light" value="addWatchlist">Add to Watchlist</button>
-          <button *ngIf="watchlist.includes(product.id)" (click)="removeFromWatchlist(product)" class="btn btn-secondary" value="deleteWatchlist">Remove from Watchlist</button>
+          <button *ngIf="!watchlist.includes(product.id) && !is_admin" (click)="addToWatchlist(product)" class="btn btn-light" value="addWatchlist">Add to Watchlist</button>
+          <button *ngIf="watchlist.includes(product.id) && !is_admin" (click)="removeFromWatchlist(product)" class="btn btn-secondary" value="deleteWatchlist">Remove from Watchlist</button>
         </td>
       </tr>
     </tbody>
   </table>
-  <button type="submit" (click)="placeOrder()" value="submitOrder" class="btn btn-dark">Submit Order</button>
+  <button *ngIf="!is_admin" type="submit" (click)="placeOrder()" value="submitOrder" class="btn btn-dark">Submit Order</button>
+  <button  *ngIf="is_admin" type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#newProductModal">
+    Create New Product
+  </button>
 
+  <!-- Modal -->
+  <div class="modal fade" id="newProductModal" tabindex="-1" aria-labelledby="newProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New Product</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Here goes your form -->
+          <form #createProductForm="ngForm" (ngSubmit)="createProduct(createProductForm)">
+            <div class="mb-3">
+              <label for="name" class="form-label">Product Name</label>
+              <input type="text" class="form-control" id="name" name="name" ngModel>
+            </div>
+            <div class="mb-3">
+              <label for="description" class="form-label">Description</label>
+              <input type="text" class="form-control" id="description" name="description" ngModel>
+            </div>
+            <div class="mb-3">
+              <label for="retail_price" class="form-label">Retail Price</label>
+              <input type="text" class="form-control" id="retail_price" name="retail_price" ngModel>
+            </div>
+            <div class="mb-3">
+              <label for="wholesale_price" class="form-label">Wholesale Price</label>
+              <input type="text" class="form-control" id="wholesale_price" name="wholesale_price" ngModel>
+            </div>
+            <div class="mb-3">
+              <label for="quantity" class="form-label">Quantity</label>
+              <input type="text" class="form-control" id="quantity" name="quantity" ngModel>
+            </div>
+            <!-- Add more fields as required -->
+            <button type="submit" class="btn btn-dark" >Create</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
-
-
-<!--    <div *ngIg="is_admin">-->
-<!--      <tr>-->
-<!--        <th scope="row">${entry.key.id}</th>-->
-<!--        <td>${entry.key.name}</td>-->
-<!--        <td>${entry.value[0]}</td>-->
-<!--        <td>${entry.key.time_start}</td>-->
-<!--        <td>${entry.key.time_end}</td>-->
-<!--        <td>-->
-<!--          <c:if test="${entry.key.time_end != null}">-->
-<!--            <form action="/quiz-result/${entry.key.id}" method="get">-->
-<!--              <button class="btn btn-light" type="submit">-->
-<!--                ${entry.value[1]}-->
-<!--              </button>-->
-
-<!--            </form>-->
-<!--          </c:if>-->
-<!--        </td>-->
-<!--      </tr>-->
-<!--    </div>-->
-<!--    </tbody>-->

@@ -44,7 +44,8 @@ export class UserAuthService{
   }
 
   public isAdmin(): boolean {
-    return this.getPermissions() !== null && this.getPermissions() === 'Admin';
+    console.log(this.getPermissions());
+    return this.getPermissions() !== null && this.getPermissions() === 'ADMIN';
   }
 
   public setCart(cart:OrderItemToAdd[]) {

@@ -26,4 +26,8 @@ export class OrderService {
   public recentProducts(count: number) {
     return this.httpClient.get(`http://localhost:8080/products/recent/${count}`);
   }
+
+  public completeOrder(id: number) {
+    return this.httpClient.patch(`http://localhost:8080/orders/${id}/complete`,[]);
+  }
 }

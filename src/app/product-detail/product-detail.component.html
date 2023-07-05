@@ -2,7 +2,51 @@
   <h2>{{ product.name }}</h2>
   <p><strong>Description: </strong>{{ product.description }}</p>
   <p><strong>Price: </strong> {{ product.retail_price }}</p>
-  <button class="btn btn-dark" *ngIf="!watchlist.includes(product.id)" (click)="addToWatchlist()">Add To Watchlist</button>
-  <button class="btn btn-secondary" *ngIf="watchlist.includes(product.id)" (click)="removeFromWatchlist()">Remove from Watchlist</button>
+  <p *ngIf="isAdmin"><strong>Wholesale Price: </strong> {{ product.wholesale_price }}</p>
+  <p *ngIf="isAdmin"><strong>Quantity: </strong> {{ product.quantity }}</p>
+  <p *ngIf="isAdmin"><strong>Sold: </strong> {{ count }}</p>
+  <button class="btn btn-dark" *ngIf="!watchlist.includes(product.id) && !isAdmin" (click)="addToWatchlist()">Add To Watchlist</button>
+  <button class="btn btn-secondary" *ngIf="watchlist.includes(product.id) && !isAdmin" (click)="removeFromWatchlist()">Remove from Watchlist</button>
+  <button *ngIf="isAdmin" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#editProductModal">Edit Product</button>
   <button class="btn btn-dark" routerLink="/products">Back to All Products</button>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Product</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Here goes your form -->
+        <form #editProductForm="ngForm" (ngSubmit)="editProduct(editProductForm, product.id)">
+          <div class="mb-3">
+            <label for="name" class="form-label">Product Name</label>
+            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="product.name" ngModel>
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <input type="text" class="form-control" id="description" [(ngModel)]="product.description" name="description" ngModel>
+          </div>
+          <div class="mb-3">
+            <label for="retail_price" class="form-label">Retail Price</label>
+            <input type="text" class="form-control" id="retail_price" name="retail_price" [(ngModel)]="product.retail_price" ngModel>
+          </div>
+          <div class="mb-3">
+            <label for="wholesale_price" class="form-label">Wholesale Price</label>
+            <input type="text" class="form-control" id="wholesale_price" name="wholesale_price" [(ngModel)]="product.wholesale_price" ngModel>
+          </div>
+          <div class="mb-3">
+            <label for="quantity" class="form-label">Quantity</label>
+            <input type="text" class="form-control" id="quantity" name="quantity" [(ngModel)]="product.quantity" ngModel>
+          </div>
+          <!-- Add more fields as required -->
+          <button type="submit" class="btn btn-dark" >Update</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

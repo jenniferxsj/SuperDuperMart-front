@@ -8,10 +8,12 @@ import {Router} from "@angular/router";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  isAdmin: boolean = false;
   constructor(private userAuthService: UserAuthService, private router: Router) {
   }
 
   ngOnInit() {
+    this.isAdmin = this.userAuthService.isAdmin();
   }
 
   public isLogIn() {
@@ -20,7 +22,7 @@ export class HeaderComponent implements OnInit {
 
   public logout():void {
     this.userAuthService.clearToken();
-    this.router.navigate(["/home"]);
+    this.router.navigate(["/login"]);
   }
 
 }

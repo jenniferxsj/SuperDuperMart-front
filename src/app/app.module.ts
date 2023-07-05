@@ -5,10 +5,10 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
-import {AuthGuardService} from "./auth/auth-guard.servoce";
+import {AuthGuardService} from "./auth/auth-guard.service";
 import {InterceptorService} from "./auth/interceptor.service";
 import {UserService} from "./services/user.service";
 import { ProductComponent } from './product/product.component';
@@ -18,6 +18,11 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { ShoppingCartComponent } from './shoppingcart/shoppingCart.component';
 import {DatePipe} from "@angular/common";
 import { OrderDetailComponent } from './order-detail/order-detail.component';
+import { OrderAdminComponent } from './order-admin/order-admin.component';
+import { WatchlistComponent } from './watchlist/watchlist.component';
+import {AccessGuardService} from "./auth/access-guard.service";
+import {UserAccessGuardService} from "./auth/userAccess-guard.service";
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -30,18 +35,24 @@ import { OrderDetailComponent } from './order-detail/order-detail.component';
     RegisterComponent,
     ProductDetailComponent,
     ShoppingCartComponent,
-    OrderDetailComponent
+    OrderDetailComponent,
+    OrderAdminComponent,
+    WatchlistComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
     AuthGuardService,
+    AccessGuardService,
+    UserAccessGuardService,
     UserService,
     DatePipe
   ],

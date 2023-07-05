@@ -63,7 +63,7 @@ export class ShoppingCartComponent implements OnInit{
       (response: any) => {
         alert(response.message);
         this.userAuthService.setCart([]);
-        this.router.navigate(["/home"])
+        this.router.navigate(["/"])
       },
       error => {
         console.error(error);

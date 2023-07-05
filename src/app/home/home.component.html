@@ -1,5 +1,6 @@
 <h3 class="text-center">Welcome To the Dashboard</h3>
-
+<h4 *ngIf="orders.length == 0" class="text-center">Oops no order yet Take a look at product page</h4>
+<div *ngIf="!isAdmin && orders.length > 0" class="text-center">
 <table class="table">
   <thead>
   <tr>
@@ -26,7 +27,7 @@
   </tbody>
 </table>
 
-<h4 class="text-center">Frequently Buy Products</h4>
+<h4>Frequently Buy Products</h4>
 <table class="table">
   <thead>
   <tr>
@@ -46,7 +47,7 @@
   </tbody>
 </table>
 
-<h4 class="text-center">Recently Buy Products</h4>
+<h4>Recently Buy Products</h4>
 <table class="table">
   <thead>
   <tr>
@@ -65,3 +66,112 @@
   </tr>
   </tbody>
 </table>
+</div>
+
+<!--       Admin             -->
+<div *ngIf="isAdmin" class="text-center">
+  <h3>All Orders</h3>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Date Placed</th>
+      <th scope="col">Username</th>
+      <th scope="col">Order Status</th>
+      <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let order of orders; let i = index">
+      <th scope="row">{{i + 1}}</th>
+      <td>{{order.date_placed}}</td>
+      <td>{{order.username}}</td>
+      <td>{{order.order_status}}</td>
+      <td>
+        <button [routerLink]="['/orders', order.id]" class="btn btn-light" value="getOrder">
+          Details
+        </button>
+        <button *ngIf="order.order_status === 'Processing'" (click)="completeOrder(order.id)" class="btn btn-secondary" value="getOrder">
+          Set Complete
+        </button>
+        <button *ngIf="order.order_status === 'Processing'" (click)="cancelOrder(order.id)" class="btn btn-danger" value="getOrder">
+          Cancel Order
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h3>All Products</h3>
+    <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Product</th>
+      <th scope="col">Description</th>
+      <th scope="col">Retail Price</th>
+      <th scope="col">Wholesale Price</th>
+      <th scope="col">Stock</th>
+      <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let product of products; let i = index">
+      <th scope="row">{{i + 1}}</th>
+      <td>{{product.name}}</td>
+      <td>{{product.description}}</td>
+      <td>{{product.retail_price}}</td>
+      <td>{{product.wholesale_price}}</td>
+      <td>{{product.quantity}}</td>
+      <td>
+        <button [routerLink]="['/products', product.id]"  class="btn btn-light" value="detail">View Detail</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h3>Top 3 Profitable Products</h3>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Product</th>
+      <th scope="col">Description</th>
+      <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of profitProduct; let i = index">
+      <th scope="row">{{i + 1}}</th>
+      <td>{{item.name}}</td>
+      <td>{{item.description}}</td>
+      <td>
+        <button [routerLink]="['/products', item.id]"  class="btn btn-light" value="detail">View Detail</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h3>Top 3 Popular Products</h3>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Product</th>
+      <th scope="col">Description</th>
+      <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of popularProduct; let i = index">
+      <th scope="row">{{i + 1}}</th>
+      <td>{{item.name}}</td>
+      <td>{{item.description}}</td>
+      <td>
+        <button [routerLink]="['/products', item.id]"  class="btn btn-light" value="detail">View Detail</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>

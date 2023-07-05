@@ -8,6 +8,7 @@ import {UserProduct} from "../model/userProduct.model";
 import {OrderItemToAdd} from "../model/orderItemToAdd.model";
 import {Location} from "@angular/common";
 import {error} from "@angular/compiler-cli/src/transformers/util";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-product',
@@ -16,7 +17,7 @@ import {error} from "@angular/compiler-cli/src/transformers/util";
 })
 export class ProductComponent implements OnInit {
   is_admin: boolean = false;
-  dataInfo: any[] = [];
+  dataInfo: ProductData[] = [];
   watchlist: number[] = [];
   cart: OrderItemToAdd[] = [];
   constructor(private productService: ProductService, private userAuthService: UserAuthService,
@@ -31,9 +32,10 @@ export class ProductComponent implements OnInit {
 
   public getAllProducts() {
     this.is_admin = this.userAuthService.isAdmin();
-    this.productService.getData(this.is_admin).subscribe(
-      (res) => {
-        this.dataInfo = res;
+    this.productService.getData().subscribe(
+      (res: any) => {
+        console.log(res);
+        this.dataInfo = res.data;
       },
       (error: HttpErrorResponse) => {
         console.log(error);
@@ -90,7 +92,7 @@ export class ProductComponent implements OnInit {
   public getAllWatchlist() {
     this.productService.getAllWatchlist().subscribe(
       (response:any) => {
-        response.data.forEach((item:any) => this.watchlist.push(item.product.id));
+        response.data.forEach((item:any) => this.watchlist.push(item.id));
       },
       error => {
         console.log(error);
@@ -110,5 +112,15 @@ export class ProductComponent implements OnInit {
         alert("Something's wrong, try again");
       }
     )
+  }
+
+  createProduct(createProductForm: NgForm) {
+    this.productService.createProduct(createProductForm.value).subscribe(
+      (response:any) => {
+        alert(response.message);
+        this.ngOnInit();
+      },
+      error => console.log(error)
+    );
   }
 }
